@@ -1,107 +1,171 @@
-# Jetson Orin Nano / aarch64 Deep Learning Wheels
+# Jetson Orin Wheels
 
-This repository hosts pre-built Python wheels (`.whl`) for PyTorch, TorchVision, Torchaudio, and TensorRT specifically compiled for NVIDIA Jetson Orin Nano (ARM64 / aarch64) with JetPack 6.2.1(rc1), CUDA 12.6.
+Pre-built Python wheels for NVIDIA Jetson Orin devices on ARM64 / aarch64.
 
----
+中文说明请见 [README.zh-CN.md](README.zh-CN.md).
 
-## 📦 Included Packages
+## Releases
 
-| Package | Version | Notes |
-|---------|---------|------|
-| [PyTorch](https://github.com/Shattered217/Jetson-Orin-Nano-Wheels/releases/download/6.2.1rc1/torch-2.3.0a0+git97ff6cf-cp310-cp310-linux_aarch64.whl) | 2.3.0a0 | Built from source for CUDA 12.6, includes ARM64 optimizations |
-| [TorchVision](https://github.com/Shattered217/Jetson-Orin-Nano-Wheels/releases/download/6.2.1rc1/torchvision-0.18.0-cp310-cp310-linux_aarch64.whl) | 0.18.0a0 | Compatible with PyTorch 2.3 |
-| [Torchaudio](https://github.com/Shattered217/Jetson-Orin-Nano-Wheels/releases/download/6.2.1rc1/torchaudio-0.18.0-cp310-cp310-linux_aarch64.whl) | 2.3.0 | Minimal build, CTC decoder and FFmpeg disabled to avoid compilation issues on Jetson |
-| [TensorRT](https://github.com/Shattered217/Jetson-Orin-Nano-Wheels/releases/download/6.2.1rc1/tensorrt-10.3.0-cp310-none-linux_aarch64.whl) | 10.3.0 | Python wheel for CUDA 12.5/12.6 |
-| [OpenCV](https://github.com/Shattered217/Jetson-Orin-Nano-Wheels/releases/download/6.2.1rc1/opencv_python-4.11.0-py3-none-any.whl) | 4.11.0 | Precompiled wheel for aarch64; **requires `numpy<2`** for compatibility |
-| [ONNXRuntime](https://github.com/Shattered217/Jetson-Orin-Nano-Wheels/releases/download/6.2.1rc1/onnxruntime_gpu-1.24.0-cp310-cp310-linux_aarch64.whl) | 1.24.0 | Built from source with CUDA 12.6 + TensorRT 10 support for Jetson Orin Nano; includes FP16 and TensorRT engine caching enabled by default |
+Download wheels from the GitHub Releases page:
 
----
+https://github.com/Shattered217/Jetson-Orin-Wheels/releases
 
-## ⚙️ System Requirements
+Do not mix wheels across JetPack or Python versions. The `cp310` wheels are for Python 3.10, and the `cp312` wheels are for Python 3.12.
 
-- NVIDIA Jetson Orin Nano or compatible Jetson device
-- JetPack 6.2.1(rc1)
-- CUDA 12.6
-- cuDNN 9 (for CUDA 12.6)
-- Python 3.10
-- `pip` >= 23.0
+Make sure `uv` is already installed. See the official installation guide: https://docs.astral.sh/uv/getting-started/installation/
 
-> Make sure your Python virtual environment is active before installing.
+## Verified Environments
 
----
+| Field | JetPack 7.2.0 | JetPack 6.2.1 rc1 |
+| --- | --- | --- |
+| Host used for verification | `Jetson-Orin-NX` | `Jetson-Orin-Nano` |
+| Device | NVIDIA Jetson Orin NX Engineering Reference Developer Kit | NVIDIA Jetson Orin Nano Engineering Reference Developer Kit Super |
+| OS | Ubuntu 24.04.4 LTS | Ubuntu 22.04.5 LTS |
+| Jetson Linux / L4T | R39 revision 2.0 / `nvidia-l4t-core 39.2.0` | R36 revision 4.7 / `nvidia-l4t-core 36.4.7` |
+| CUDA Toolkit | 13.2.1 | 12.6.11 |
+| cuDNN | 9.20.0.46 for CUDA 13 | 9.3.0.75 for CUDA 12 |
+| Python | 3.12.3 | 3.10.12 |
+| System TensorRT | 10.16.2.10 | 10.3.0 |
+| System OpenCV | 5.0.0 | 4.11.0 |
 
-## 💻 Installation
+## JetPack 7.2.0
 
-```python
-# 1. (Optional) Create and activate a new UV environment
-uv venv jetson-dl python=3.10
-source jetson-dl/bin/activate
+Release: https://github.com/Shattered217/Jetson-Orin-Wheels/releases/tag/7.2.0
 
-# 2. Install precompiled PyTorch, TorchVision, and TorchAudio wheels
-uv pip install ./torch-2.3.0a0+git97ff6cf-cp310-cp310-linux_aarch64.whl
-uv pip install ./torchvision-0.18.0a0+6043bc2-cp310-cp310-linux_aarch64.whl
-uv pip install ./torchaudio-2.3.0+952ea74-cp310-cp310-linux_aarch64.whl
+### Package Matrix
 
-# 3. Install the precompiled TensorRT wheel
-uv pip install ./tensorrt-10.3.0-cp310-none-linux_aarch64.whl
+| Package | Source | Version | Notes |
+| --- | --- | --- | --- |
+| PyTorch | [`torch-2.12.0-cp312-cp312-linux_aarch64.whl`](https://github.com/Shattered217/Jetson-Orin-Wheels/releases/download/7.2.0/torch-2.12.0-cp312-cp312-linux_aarch64.whl) | 2.12.0 | Python 3.12 / aarch64 wheel. |
+| TorchVision | [`torchvision-0.27.0+78839c2-cp312-cp312-linux_aarch64.whl`](https://github.com/Shattered217/Jetson-Orin-Wheels/releases/download/7.2.0/torchvision-0.27.0%2B78839c2-cp312-cp312-linux_aarch64.whl) | 0.27.0 | Matches the PyTorch wheel above. |
+| ONNX Runtime GPU | [`onnxruntime_gpu-1.28.0-cp312-cp312-linux_aarch64.whl`](https://github.com/Shattered217/Jetson-Orin-Wheels/releases/download/7.2.0/onnxruntime_gpu-1.28.0-cp312-cp312-linux_aarch64.whl) | 1.28.0 | Keep `numpy<2` pinned. |
+| TensorRT | System Python package | 10.16.2.10 | Reuse through `--system-site-packages`. |
+| OpenCV | System Python package | 5.0.0 | Reuse through `--system-site-packages`. |
 
-# 4. Install OpenCV (note: ensure numpy<2 is installed)
-uv pip install numpy<2
-uv pip install ./opencv_python-4.11.0-py3-none-any.whl
+### Create Environment
 
-# 5. Install ONNX Runtime GPU
-uv pip install ./onnxruntime_gpu-1.24.0-cp310-cp310-linux_aarch64.whl
+JetPack 7 reuses the system TensorRT and OpenCV packages through `--system-site-packages`.
 
-# 4. Verify the installation
-python -c "import torch; import torchvision; import torchaudio; import tensorrt; print('Installation successful!')"
-python -c "import onnxruntime as ort; print(ort.get_available_providers())"
+```bash
+uv venv .venv --python 3.12 --system-site-packages
+source .venv/bin/activate
 ```
 
-## ✅ YOLO Check
-After installation, you can verify that your Ultralytics YOLO environment is correctly set up:
+### Install Wheels
 
-# Make sure your venv is active
+Install the JP7 wheels:
+
+```bash
+uv pip install \
+  "https://github.com/Shattered217/Jetson-Orin-Wheels/releases/download/7.2.0/torch-2.12.0-cp312-cp312-linux_aarch64.whl" \
+  "https://github.com/Shattered217/Jetson-Orin-Wheels/releases/download/7.2.0/torchvision-0.27.0%2B78839c2-cp312-cp312-linux_aarch64.whl" \
+  "https://github.com/Shattered217/Jetson-Orin-Wheels/releases/download/7.2.0/onnxruntime_gpu-1.28.0-cp312-cp312-linux_aarch64.whl" \
+  "numpy<2"
 ```
+
+### Verify
+
+```bash
+python - <<'PY'
+import torch
+import torchvision
+import onnxruntime as ort
+import tensorrt as trt
+import cv2
+
+print("torch:", torch.__version__)
+print("torch cuda:", torch.cuda.is_available())
+print("torchvision:", torchvision.__version__)
+print("onnxruntime providers:", ort.get_available_providers())
+print("tensorrt:", trt.__version__)
+print("opencv:", cv2.__version__)
+print("opencv cuda devices:", cv2.cuda.getCudaEnabledDeviceCount())
+PY
+```
+
+## JetPack 6.x
+
+Release: https://github.com/Shattered217/Jetson-Orin-Wheels/releases/tag/6.2.1rc1
+
+These wheels were verified on JetPack 6.2.1 rc1. Compatibility across other JetPack 6.x minor versions is not guaranteed.
+
+### Package Matrix
+
+| Package | Source | Version | Notes |
+| --- | --- | --- | --- |
+| PyTorch | [`torch-2.3.0a0+git97ff6cf-cp310-cp310-linux_aarch64.whl`](https://github.com/Shattered217/Jetson-Orin-Wheels/releases/download/6.2.1rc1/torch-2.3.0a0%2Bgit97ff6cf-cp310-cp310-linux_aarch64.whl) | 2.3.0a0 | Python 3.10 / aarch64 wheel. |
+| TorchVision | [`torchvision-0.18.0-cp310-cp310-linux_aarch64.whl`](https://github.com/Shattered217/Jetson-Orin-Wheels/releases/download/6.2.1rc1/torchvision-0.18.0-cp310-cp310-linux_aarch64.whl) | 0.18.0 | Matches the PyTorch wheel above. |
+| Torchaudio | [`torchaudio-0.18.0-cp310-cp310-linux_aarch64.whl`](https://github.com/Shattered217/Jetson-Orin-Wheels/releases/download/6.2.1rc1/torchaudio-0.18.0-cp310-cp310-linux_aarch64.whl) | 0.18.0 | Minimal Jetson build. |
+| ONNX Runtime GPU | [`onnxruntime_gpu-1.24.0-cp310-cp310-linux_aarch64.whl`](https://github.com/Shattered217/Jetson-Orin-Wheels/releases/download/6.2.1rc1/onnxruntime_gpu-1.24.0-cp310-cp310-linux_aarch64.whl) | 1.24.0 | CUDA / TensorRT-enabled GPU build. |
+| TensorRT | System Python package | 10.3.0 | Reuse through `--system-site-packages`. |
+| OpenCV | System Python package | 4.11.0 | Reuse through `--system-site-packages`. |
+
+### Create Environment
+
+For JetPack 6, using `--system-site-packages` to reuse the system TensorRT and OpenCV packages is recommended first. If you prefer a fully wheel-based setup, you can manually install the TensorRT and OpenCV wheels from the release page.
+
+```bash
+uv venv .venv --python 3.10 --system-site-packages
+source .venv/bin/activate
+```
+
+### Install Wheels
+
+Install the JP6 wheels:
+
+```bash
+uv pip install \
+  "https://github.com/Shattered217/Jetson-Orin-Wheels/releases/download/6.2.1rc1/torch-2.3.0a0%2Bgit97ff6cf-cp310-cp310-linux_aarch64.whl" \
+  "https://github.com/Shattered217/Jetson-Orin-Wheels/releases/download/6.2.1rc1/torchvision-0.18.0-cp310-cp310-linux_aarch64.whl" \
+  "https://github.com/Shattered217/Jetson-Orin-Wheels/releases/download/6.2.1rc1/torchaudio-0.18.0-cp310-cp310-linux_aarch64.whl" \
+  "https://github.com/Shattered217/Jetson-Orin-Wheels/releases/download/6.2.1rc1/onnxruntime_gpu-1.24.0-cp310-cp310-linux_aarch64.whl" \
+  "numpy<2"
+```
+
+### Verify
+
+```bash
+python - <<'PY'
+import torch
+import torchvision
+import torchaudio
+import onnxruntime as ort
+import tensorrt as trt
+import cv2
+
+print("torch:", torch.__version__)
+print("torch cuda:", torch.cuda.is_available())
+print("torchvision:", torchvision.__version__)
+print("torchaudio:", torchaudio.__version__)
+print("onnxruntime providers:", ort.get_available_providers())
+print("tensorrt:", trt.__version__)
+print("opencv:", cv2.__version__)
+print("opencv cuda devices:", cv2.cuda.getCudaEnabledDeviceCount())
+PY
+```
+
+## YOLO Smoke Test
+
+After installing PyTorch and OpenCV, Ultralytics YOLO can be checked with:
+
+```bash
+uv pip install ultralytics
 yolo check
 ```
 
-Example output should include:
-```
-Ultralytics 8.3.204 🚀 Python-3.10.18 torch-2.3.0a0+git97ff6cf CUDA:0 (Orin, 7620MiB)
-Setup complete ✅ (6 CPUs, 7.4 GB RAM, 90.9/232.2 GB disk)
+The output should show the Jetson GPU, CUDA availability, PyTorch, TorchVision, NumPy, and OpenCV versions.
 
-OS                     Linux-5.15.148-tegra-aarch64-with-glibc2.35
-Environment            Linux
-Python                 3.10.18
-Install                pip
-Path                   /home/ros/yolo/venv/lib/python3.10/site-packages/ultralytics
-RAM                    7.44 GB
-Disk                   90.9/232.2 GB
-CPU                    ARMv8 Processor rev 1 (v8l)
-CPU count              6
-GPU                    Orin, 7620MiB
-GPU count              1
-CUDA                   12.6
+## Troubleshooting
 
-numpy                  ✅ 1.26.4>=1.23.0
-matplotlib             ✅ 3.10.6>=3.3.0
-opencv-python          ✅ 4.11.0>=4.6.0
-pillow                 ✅ 11.3.0>=7.1.2
-pyyaml                 ✅ 6.0.3>=5.3.1
-requests               ✅ 2.32.5>=2.23.0
-scipy                  ✅ 1.15.3>=1.4.1
-torch                  ✅ 2.3.0a0+git97ff6cf>=1.8.0
-torch                  ✅ 2.3.0a0+git97ff6cf!=2.4.0,>=1.8.0; sys_platform == "win32"
-torchvision            ✅ 0.18.0>=0.9.0
-psutil                 ✅ 7.1.0
-polars                 ✅ 1.33.1
-ultralytics-thop       ✅ 2.0.17>=2.0.0
-```
+- **Wrong Python ABI**: `cp310` wheels require Python 3.10; `cp312` wheels require Python 3.12.
+- **Wrong JetPack line**: Install wheels from the release tag matching your JetPack version.
+- **NumPy compatibility**: Keep `numpy<2` pinned when using the ONNX Runtime GPU wheels.
+- **TensorRT / OpenCV imports fail**: Recreate the environment with `--system-site-packages`.
+- **Multiple Python environments**: Run `which python`, `python --version`, and `python -m pip --version` before installing.
 
-🔗 References
+## References
 
-[PyTorch for Jetson](https://forums.developer.nvidia.com/t/pytorch-for-jetson/72048)
-
-[TensorRT 10.3](https://github.com/NVIDIA/TensorRT/tree/release/10.3/python)
-
-[Install OpenCV on Jetson Orin Nano](https://qengineering.eu/install-opencv-on-orin-nano.html)
+- [Jetson Orin Wheels releases](https://github.com/Shattered217/Jetson-Orin-Wheels/releases)
+- [Jetson Python environment: reuse system packages with uv `--system-site-packages`](https://nvcc-v.com/2026/06/09/jetson-python-uv-system-site-packages/)
+- [PyTorch for Jetson](https://forums.developer.nvidia.com/t/pytorch-for-jetson/72048)
+- [TensorRT Python package source](https://github.com/NVIDIA/TensorRT/tree/release/10.3/python)
